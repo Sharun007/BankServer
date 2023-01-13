@@ -113,3 +113,36 @@ Mongo DB
   crud  - create read update delete
 
 
+server mongodb integration
+--------------------------
+
+- mongoose   - library used to integrate database and server
+
+  npm i mongoose  - command to install mongoose
+
+
+server mdb integration
+--------------------------
+
+  1. import mongoose
+ 
+  2. state connection string via mongoose
+
+  3. define a bank database model
+
+  4. Export the schema to use in another files
+
+
+
+ANGULAR SERVER INTEGRATION/FRONTEND-BACKEND INTEGRATION
+--------------------------------------------------------
+
+angular and node integration module - CORS (cross origin resource sharing)
+
+4200-3000
+
+  npm i cors - command to install cors
+
+  
+
+

@@ -1,3 +1,7 @@
+// import cors
+const cors = require('cors')
+
+
 // import dataservice file from service folder
 
 const dataservice=require('./service/dataService')
@@ -14,6 +18,9 @@ const express=require('express')
 //create app
 
 const app =express()
+
+// connect frontend
+app.use(cors({origin:'http://localhost:4200'}))
 
 //set port
 app.listen(3000,()=>{
@@ -50,9 +57,11 @@ const jwtmiddleware=(req,res,next)=>{
 
 app.post('/register',(req,res)=>{
 
-    const result=dataservice.register(req.body.acno,req.body.uname,req.body.psw)
+    dataservice.register(req.body.acno,req.body.uname,req.body.psw).then(result=>{
+        res.status(result.statusCode).json(result)
+    })
    
-    res.status(result.statusCode).json(result)
+    
    
 
 
@@ -62,33 +71,33 @@ app.post('/register',(req,res)=>{
 
 app.post('/login',(req,res)=>{
 
-    const result=dataservice.login(req.body.acno,req.body.psw)
-   
-    res.status(result.statusCode).json(result)
-   
+    dataservice.login(req.body.acno,req.body.psw).then(result=>{
+        res.status(result.statusCode).json(result)
 
-
+    })
+   
 })
 
 //deposit
 
 app.post('/deposit',jwtmiddleware,(req,res)=>{
 
-    const result=dataservice.deposit(req.body.acno,req.body.psw,req.body.amount)
-   
-    res.status(result.statusCode).json(result)
-   
+    dataservice.deposit(req.body.acno,req.body.psw,req.body.amount).then(result=>{
+        res.status(result.statusCode).json(result)
 
-
+    })
+   
 })
 
 //withdraw
 
 app.post('/withdraw',jwtmiddleware,(req,res)=>{
 
-    const result=dataservice.withdraw(req.body.acno,req.body.psw,req.body.amount)
+    dataservice.withdraw(req.body.acno,req.body.psw,req.body.amount).then(result=>{
+        res.status(result.statusCode).json(result)
+
+    })
    
-    res.status(result.statusCode).json(result)
    
 
 
@@ -98,12 +107,23 @@ app.post('/withdraw',jwtmiddleware,(req,res)=>{
 
 app.post('/transaction',jwtmiddleware,(req,res)=>{
 
-    const result=dataservice.gettransaction(req.body.acno)
-   
+   dataservice.gettransaction(req.body.acno).then(result=>{
+
     res.status(result.statusCode).json(result)
+
+    })
+   
    
 
 
+})
+
+
+//delete
+app.delete('/deleteacc/:acno',jwtmiddleware,(req,res)=>{
+    dataservice.acdelete(req.params.acno).then(result=>{
+        res.status(result.statusCode).json(result)
+    })
 })
 
 
